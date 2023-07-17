@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+  <div class="site-wrap">
+    <header class="site-navbar" role="banner">
+      <div class="site-navbar-top">
+        <div class="container">
+          <div class="row align-items-center">
+
+            <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
+              <form action="" class="site-block-top-search">
+                <span class="icon icon-search2"></span>
+                <input type="text" class="form-control border-0" placeholder="Rechercher">
+              </form>
+            </div>
+
+            <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
+              <div class="">
+                <a href="{% url 'home' %}" class="js-logo-clone">{% load static %}
+                  <img src="{% static 'images/logo.png' %}" alt="" class="img-fluid w-50"></a>
+              </div>
+            </div>
+
+            <div class="col-6 col-md-4 order-3 order-md-3 text-right">
+              <div class="site-top-icons">
+                <ul>
+                  {% if user.is_authenticated %}
+                  <li>Bienvenue, {{ user.last_name }} </li>
+                  {% endif%}
+                  <li><a href="#"><span class="icon icon-person"></span></a></li>
+                  <!-- <li><a href="#"><span class="icon icon-heart-o"></span></a></li> -->
+                  <li>
+                    <a href="{% url 'cart' %}" class="site-cart">
+                      <span class="icon icon-shopping_cart"></span>
+                      <!-- <span class="count">2</span> -->
+                    </a>
+                  </li>
+                  {% if user.is_authenticated %}
+                  <form method="get">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary btn-sm" id="submit" name="submit" value="Deconnexion">
+                  </form>
+                  {% endif%}
+                  <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span
+                        class="icon-menu"></span></a></li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <nav class="site-navigation text-right text-md-center" role="navigation">
+        <div class="container">
+          <ul class="site-menu js-clone-nav d-none d-md-block">
+            <li class=" active">
+              <a href="{% url 'home' %}">Accueil</a>
+
+            </li>
+            <li class="">
+              <a href="{% url 'about' %}">A propos</a>
+
+            </li>
+            <li><a href="{% url 'shop' %}">Shop</a></li>
+            <li><a href="{% url 'register' %}">Inscription</a></li>
+
+            <li><a href="{% url 'connexion' %}">Connexion</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+
+    {% load static %}
+    <div class="site-blocks-cover" style="background-image: url('{% static 'images/hero_1.jpeg' %}'); data-aos=" fade">
+      <div class="container">
+        <div class="row align-items-start align-items-md-center justify-content-end">
+          <div class="col-md-5 text-center text-md-left pt-5 pt-md-0">
+
+            <div class="intro-text text-center text-md-left">
+
+              <p>
+                <a href="{% url 'shop' %}" class="btn btn-sm btn-primary mt-5 mx-5 p-4">Shop Now</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section site-section-sm site-blocks-1">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="">
+            <div class="icon mr-4 align-self-start">
+              <span class="icon-truck"></span>
+            </div>
+            <div class="text">
+              <h2 class="text-uppercase">Livraison</h2>
+              <p> Chez 3COEURS,
+                nous nous engageons à assurer la sécurité de tous vos articles tout au long du processus de livraison .
+                Vos articles sont soignesement protégés et emballés afin qu'ils vous parviennent en parfait état. .</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon mr-4 align-self-start">
+              <span class="icon-refresh2"></span>
+            </div>
+            <div class="text">
+              <h2 class="text-uppercase">Retours</h2>
+              <p>Chez 3COEURS , nous comprenons que parfois vous pouvez changer d'avis ou rencontrer des problèmes avec
+                un article
+                que vous acheteé. C'est pourquoi nous offrons un processus de retour simple allant jusqu'à 3 jours après
+                votre achat.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon mr-4 align-self-start">
+              <span class="icon-help"></span>
+            </div>
+            <div class="text">
+              <h2 class="text-uppercase">Assistance client</h2>
+              <p>Chez 3COEURS , nous accordons une grande importance à l'assistance client. Nous sommes là pour
+                vous aider à chaque étape de votre processus d'achat et après achat.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section site-blocks-2">
+      <div class="container">
+        <div class="row">
+          <!-- <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
+            <a class="block-2-item" href="#">
+              <figure class="image">
+                {% load static %}
+                <img src="{% static 'images/women.jpg' %}" alt="" class="img-fluid">
+              </figure>
+              <div class="text">
+                <span class="text-uppercase">Collections</span>
+                <h3>Women</h3>
+              </div>
+            </a>
+          </div> -->
+          <div class="col-sm-6 col-md-6 col-lg-6 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="100">
+            <a class="block-2-item" href="{% url 'shop' %}" id="bouton-fille">
+              <figure class="image">
+                {% load static %}
+                <img src="{% static 'images/shoe.png' %}" style="height:710px;" alt="" class="img-fluid">
+              </figure>
+              <div class="text">
+                <span class="text-uppercase">Collections</span>
+                <h3>Filles</h3>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-sm-6 col-md-6 col-lg-6 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
+
+
+            <a class="block-2-item" href="{% url 'shop' %}" id="bouton-garcon">
+              <figure class="image">
+                {% load static %}
+                <img src="{% static 'images/men.jpeg'%}" style="height:710px;" alt="" class="img-fluid">
+              </figure>
+              <div class="text">
+                <span class="text-uppercase">Collections</span>
+                <h3>Garçons</h3>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section block-3 site-blocks-2 bg-light">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-7 site-section-heading text-center pt-4">
+            <h2>Nos produits populaires</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="nonloop-block-3 owl-carousel">
+              <div class="item">
+                <div class="block-4 text-center">
+                  <figure class="block-4-image">
+                    {% load static %}
+                    <img src="{% static 'images/cloth_1.jpeg' %}" alt="Image placeholder" class="img-fluid">
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="#">Petite robe bleu</a></h3>
+                    <p class="mb-0">Robe bleu fillette
+                      2 ans</p>
+                    <p class="text-primary font-weight-bold">16000 FCFA</p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="block-4 text-center">
+                  <figure class="block-4-image">
+                    {% load static %}
+                    <img src="{% static 'images/shoe_1.jpeg' %}" alt="Image placeholder" class="img-fluid">
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="#">Sandales vertes</a></h3>
+                    <p class="mb-0">Pointure 36</p>
+                    <p class="text-primary font-weight-bold">25000 FCFA</p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="block-4 text-center">
+                  <figure class="block-4-image">
+                    {% load static %}
+                    <img src="{% static 'images/cloth_2.jpeg' %}" alt="Image placeholder" class="img-fluid">
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="#">Ensembe bébé</a></h3>
+                    <p class="mb-0">Ensemble bébé bleu/blanc 5 à 9 mois</p>
+                    <p class="text-primary font-weight-bold">25000 FCFA</p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="block-4 text-center">
+                  <figure class="block-4-image">
+                    {% load static %}
+                    <img src="{% static 'images/cloth_3.jpeg' %}" alt="Image placeholder" class="img-fluid">
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="#">Robe licorne</a></h3>
+                    <p class="mb-0">Robe licorne pour anniversaire , sorties
+                      6 ans</p>
+                    <p class="text-primary font-weight-bold">33000 FCFA</p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="block-4 text-center">
+                  <figure class="block-4-image">
+                    {% load static %}
+                    <img src="{% static 'images/shoe_2.jpeg' %}" alt="Image placeholder" class="img-fluid">
+                  </figure>
+                  <div class="block-4-text p-4">
+                    <h3><a href="#">Ballerines dorée</a></h3>
+                    <p class="mb-0">Pointure 32</p>
+                    <p class="text-primary font-weight-bold">20000 FCFA</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section block-8">
+      <div class="container">
+        <div class="row justify-content-center  mb-5">
+          <div class="col-md-7 site-section-heading text-center pt-4">
+            <h2>Soldes exceptionnelles</h2>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-md-12 col-lg-7 mb-5">
+            {% load static %}
+            <a href="#"><img src="{% static 'images/blog.jpeg' %}" style="height:400px;" alt="Image placeholder"
+                class="img-fluid rounded"></a>
+          </div>
+          <div class="col-md-12 col-lg-5 text-center pl-md-5">
+            <h2><a href="#">Moins 50% sur tout vos articles !</a></h2>
+            <p class="post-meta mb-4"><a href="#"></a> <span class="block-8-sep">&bullet;</span>
+            </p>
+            <p>Chez 3COEURS , nous sommes ravis d'annoncer nos soldes exceptionnelles les samedis ! Profitez de
+              reductions allant jusqu'à 50% sur tout les achats effectutés ce jour là.
+            </p>
+            <p><a href="{% url 'shop' %}" class="btn btn-primary btn-sm">Shop Now</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer border-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="footer-heading mb-4">Navigations</h3>
+                <div style="overflow:hidden;width: 500px;position: relative;"><iframe width="702" height="440"
+                    src="https://maps.google.com/maps?width=702&amp;height=440&amp;hl=en&amp;q=92GM%2BR4H%2C%20Angr%C3%A9%2C%20Abidjan+(Titre)&amp;ie=UTF8&amp;t=&amp;z=10&amp;iwloc=B&amp;output=embed"
+                    frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                  <div
+                    style="position: absolute;width: 80%;bottom: 10px;left: 0;right: 0;margin-left: auto;margin-right: auto;color: #000;text-align: center;">
+                    <small style="line-height: 1.8;font-size: 2px;background: #fff;">Powered by <a
+                        href="https://embedgooglemaps.com/it/">embedgooglemaps EN</a> & <a
+                        href="https://xn--snabbln5000-28a.com/">låna 5000 kr</a></small></div>
+                  <style>
+                    #gmap_canvas img {
+                      max-width: none !important;
+                      background: none !important
+                    }
+                  </style>
+                </div><br />
+              </div>
+
+
+
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3">
+            <div class="block-5 mb-5">
+              <h3 class="footer-heading mb-4">Contact Info</h3>
+              <ul class="list-unstyled">
+                <li class="address"> Abidjan,Cocody-Riviera Bonoumin entre le rond point Ado et celui de la CNPS, Côte
+                  d'ivoire</li>
+                <li class="phone"><a href="tel://23923929210">+225 0769696363</a></li>
+                <li class="email">boutique3coeurs@gmail.com</li>
+              </ul>
+            </div>
+
+            <div class="block-7">
+              <form action="#" method="post">
+                <label for="email_subscribe" class="footer-heading">New letters</label>
+                <div class="form-group">
+                  <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
+                  <input type="submit" class="btn btn-sm btn-primary" value="Envoie">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="row pt-5 mt-5 text-center">
+          <div class="col-md-12">
+
+          </div>
+
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('bouton-fille').addEventListener('click', function (event) {
+      event.preventDefault(); // Empêche le comportement par défaut de la balise <a>
+
+      // Récupérer la valeur souhaitée
+      var valeur = "1";
+
+      // Effectuer une requête GET vers la vue Django
+      var url = "http://127.0.0.1:8000/3COEURS//shop?selected_value=" + encodeURIComponent(valeur);
+      window.location.href = url;
+    },
+    );
+  </script>
+
+  <script>
+    document.getElementById('bouton-garcon').addEventListener('click', function (event) {
+      event.preventDefault(); // Empêche le comportement par défaut de la balise <a>
+
+      // Récupérer la valeur souhaitée
+      var valeur = "2";
+
+      // Effectuer une requête GET vers la vue Django
+      var url = "http://127.0.0.1:8000/3COEURS//shop?selected_value=" + encodeURIComponent(valeur);
+      window.location.href = url;
+    },
+    );
+  </script>
+  {% load static %}
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  {% load static %}
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+  {% load static %}
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  {% load static %}
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  {% load static %}
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  {% load static %}
+  <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+  {% load static %}
+  <script src="{% static 'js/aos.js' %}"></script>
+
+  {% load static %}
+  <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>
