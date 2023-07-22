@@ -15,5 +15,6 @@ urlpatterns=[
     path('/checkout',CheckoutView.as_view(), name='checkout'),
     path('/thankyou',ThankyouView.as_view(), name='thankyou'),
     path('/shop-single',ShopsingleView.as_view(), name='shop-single')
+    
 
 ]

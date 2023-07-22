@@ -151,9 +151,7 @@ class CartView(View):
             selected_value = request.GET.get('product_id')
             if selected_value is not None:
                 produit = Produit.objects.get(id=selected_value)
-                self.products.append(produit)
-            
-            
+                self.products.append(produit)         
 
         context = {
             'produits': self.products,
