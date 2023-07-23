@@ -138,24 +138,29 @@ class CartView(View):
         
     template_index = 'cart.html'
     products = []
+    total_price = 0
 
     def get(self, request):
         if request.method == 'GET':
-            
             remove_value = request.GET.get('remove_produit')
             if remove_value != None:
                 remove_produit = Produit.objects.get(id=remove_value)
                 if remove_produit in  self.products:
-                          self.products.remove(remove_produit)
+                        self.products.remove(remove_produit)
 
             selected_value = request.GET.get('product_id')
             if selected_value is not None:
                 produit = Produit.objects.get(id=selected_value)
-                self.products.append(produit)         
+                if not produit in self.products:
+                    self.products.append(produit)  
 
+        self.total_price = 0
+        for i in self.products:
+            self.total_price += i.prix_produit      
         context = {
             'produits': self.products,
-            'products_nombre': len(self.products)
+            'products_nombre': len(self.products),
+            'total_price': self.total_price,
         }         
         
         return render(request, self.template_index, context)
