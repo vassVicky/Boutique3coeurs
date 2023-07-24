@@ -101,7 +101,7 @@
 
     <div class="site-section">
       <div class="container">
-        <form action="{% url 'thankyou' %}">
+        <form action="{% url 'thankyou' %}" method="get">
           <div class="row mb-5">
             <div class="col-md-12">
               <div class="border p-4 rounded" role="alert">
@@ -115,7 +115,7 @@
               <div class="p-3 p-lg-5 border">
                 <div class="form-group">
                   <label for="c_country" class="text-black">Pays <span class="text-danger">*</span></label>
-                  <select required id="c_country" class="form-control">
+                  <select name="pays" required id="c_country" class="form-control">
                     <option value="2" selected>Côte d'Ivoire</option>
                     <option value="3">Burkina</option>
                     <option value="4">Mali</option>
@@ -130,7 +130,7 @@
   
                 <div class="form-group">
                   <label for="c_country" class="text-black">Ville<span class="text-danger"></span></label>
-                  <select id="c_country" class="form-control">
+                  <select name="ville" id="c_country" class="form-control">
                     <option value="1">Selectionnez votre ville</option>
                     <option value="2">Abidjan</option>
                     <option value="3">Daloa</option>
@@ -293,9 +293,7 @@
                     </div> -->
   
                     <div class="form-group">
-                      <a href="">
                         <button type="submit" class="btn btn-primary btn-lg py-3 btn-block">Valider votre commande </button>
-                      </a>
                     </div>
   
                   </div>

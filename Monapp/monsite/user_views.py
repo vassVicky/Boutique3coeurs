@@ -319,11 +319,6 @@ class CartView(View):
         return render(request, self.template_index, context)
             
 
-
-        
-
-
-
 class CheckoutView(View):
         
         template_index ='checkout.html'
@@ -360,11 +355,52 @@ class ThankyouView(View):
 
         def get (self,request):
             if request.method == 'GET':
+                c_fname = request.GET.get('c_fname')
+                c_lname = request.GET.get('c_lname')
+                c_address = request.GET.get('c_address')
+                c_email_address = request.GET.get('c_email_address')
+                c_phone = request.GET.get('c_phone')
+                ville = request.GET.get('ville')
+                pays = request.GET.get('pays')
+                commande = Commande()
+                commande.nom_client = c_fname
+                commande.prenoms_client = c_lname
+                commande.pays = pays
+                commande.ville = ville
+                commande.adresse = c_address
+                commande.email = c_email_address
+                commande.phone = c_phone
+                commande.statut_commande = 'finished'
+                commande.save()
                 if not request.session.session_key:
                     request.session.create()
                 session = request.session
                 session = Session.objects.get(pk=session.session_key)
                 if request.user.is_authenticated:
+                    commande.client = request.user
+                    commande.save()
+                    try:
+                        panier = Panier.objects.get(client=request.user)
+                    except:
+                        panier = Panier()
+                        panier.client=request.user 
+                        panier.save()   
+                else:
+                    try:
+                        panier = Panier.objects.get(session=session)
+                    except:
+                        panier = Panier()
+                        panier.session=session 
+                        panier.save()
+                for i in panier.produits.all():
+                    produit_commande = ProduitCommande()
+                    produit_commande.produit = i.produit  
+                    produit_commande.commande = commande
+                    produit_commande.save()
+                panier.delete()
+                if request.user.is_authenticated:
+                    commande.client = request.user
+                    commande.save()
                     try:
                         panier = Panier.objects.get(client=request.user)
                     except:

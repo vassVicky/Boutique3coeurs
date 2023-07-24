@@ -80,8 +80,7 @@ class Commande(models.Model):
         ('finished', _('Validé')),
     )
     
-    date_commande = models.DateTimeField()
-    qte_commande = models.PositiveIntegerField()
+    date_commande = models.DateTimeField(auto_now_add=True)
     statut_commande = models.CharField(max_length=255 , choices=STATUS_COMMANDE) 
     client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True)
     nom_client = models.CharField(max_length=255)
@@ -90,10 +89,8 @@ class Commande(models.Model):
     ville = models.CharField(max_length=255)
     adresse = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
-    adresse = models.TextField()
-    nom_client = models.CharField(max_length=255)
+    phone = models.CharField(max_length=255)
     livraison = models.ForeignKey(Livraison,on_delete=models.SET_NULL,null=True)
-    prix_total = models.FloatField()
     
     @property
     def prix_total(self):
