@@ -12,13 +12,35 @@ class HomeView(View):
     template_index ='index.html'
 
     def get (self,request):
+
         if request.method == 'GET':
+            
             value = request.GET.get('submit')
             if value == 'Deconnexion':
                 logout(request)
                 return redirect('home')
-
-        return render(request,self.template_index)
+            if not request.session.session_key:
+                request.session.create()
+            session = request.session
+            session = Session.objects.get(pk=session.session_key)
+            if request.user.is_authenticated:
+                try:
+                    panier = Panier.objects.get(client=request.user)
+                except:
+                    panier = Panier()
+                    panier.client=request.user 
+                    panier.save()   
+            else:
+                try:
+                    panier = Panier.objects.get(session=session)
+                except:
+                    panier = Panier()
+                    panier.session=session 
+                    panier.save()
+            context = {
+                 'panier':panier
+            }
+        return render(request,self.template_index, context)
         
 
 class RegisterView(View):
@@ -28,8 +50,28 @@ class RegisterView(View):
 
     def get (self,request):
         if request.method == 'GET':
-
-           return render(request,self.template_index)
+            if not request.session.session_key:
+                request.session.create()
+            session = request.session
+            session = Session.objects.get(pk=session.session_key)
+            if request.user.is_authenticated:
+                try:
+                    panier = Panier.objects.get(client=request.user)
+                except:
+                    panier = Panier()
+                    panier.client=request.user 
+                    panier.save()   
+            else:
+                try:
+                    panier = Panier.objects.get(session=session)
+                except:
+                    panier = Panier()
+                    panier.session=session 
+                    panier.save()
+            context = {
+                'panier':panier
+            }
+            return render(request,self.template_index,context)
         
 
     def post(self,request):
@@ -64,8 +106,28 @@ class ConnexionView(View):
 
     def get (self,request):
         if request.method == 'GET':
-
-           return render(request,self.template_index)
+            if not request.session.session_key:
+                request.session.create()
+            session = request.session
+            session = Session.objects.get(pk=session.session_key)
+            if request.user.is_authenticated:
+                try:
+                    panier = Panier.objects.get(client=request.user)
+                except:
+                    panier = Panier()
+                    panier.client=request.user 
+                    panier.save()   
+            else:
+                try:
+                    panier = Panier.objects.get(session=session)
+                except:
+                    panier = Panier()
+                    panier.session=session 
+                    panier.save()
+            context = {
+                'panier':panier
+            }
+            return render(request,self.template_index,context)
 
 
     def post(self, request):
@@ -90,8 +152,28 @@ class ContactView(View):
 
         def get (self,request):
             if request.method == 'GET':
-                
-                return render(request,self.template_index)
+                if not request.session.session_key:
+                    request.session.create()
+                session = request.session
+                session = Session.objects.get(pk=session.session_key)
+                if request.user.is_authenticated:
+                    try:
+                        panier = Panier.objects.get(client=request.user)
+                    except:
+                        panier = Panier()
+                        panier.client=request.user 
+                        panier.save()   
+                else:
+                    try:
+                        panier = Panier.objects.get(session=session)
+                    except:
+                        panier = Panier()
+                        panier.session=session 
+                        panier.save()
+                context = {
+                    'panier':panier
+                }   
+                return render(request,self.template_index,context)
             
 
 class AboutView(View):
@@ -100,8 +182,28 @@ class AboutView(View):
 
         def get (self,request):
             if request.method == 'GET':
-                
-                return render(request,self.template_index)
+                if not request.session.session_key:
+                    request.session.create()
+                session = request.session
+                session = Session.objects.get(pk=session.session_key)
+                if request.user.is_authenticated:
+                    try:
+                        panier = Panier.objects.get(client=request.user)
+                    except:
+                        panier = Panier()
+                        panier.client=request.user 
+                        panier.save()   
+                else:
+                    try:
+                        panier = Panier.objects.get(session=session)
+                    except:
+                        panier = Panier()
+                        panier.session=session 
+                        panier.save()
+                context = {
+                    'panier':panier
+                }
+                return render(request,self.template_index, context)
             
 
 
@@ -111,12 +213,32 @@ class ShopView(View):
 
         def get (self,request):
             if request.method == 'GET':
-                     selected_value=request.GET.get('selected_value')
-                     if selected_value != None:
-                          produits = Produit.objects.filter(categorie=selected_value)
-                     else:
-                        produits = Produit.objects.all()
+                selected_value=request.GET.get('selected_value')
+                if selected_value != None:
+                    produits = Produit.objects.filter(categorie=selected_value)
+                else:
+                    produits = Produit.objects.all()
+                if not request.session.session_key:
+                    request.session.create()
+                session = request.session
+                session = Session.objects.get(pk=session.session_key)
+                if request.user.is_authenticated:
+                    try:
+                        panier = Panier.objects.get(client=request.user)
+                    except:
+                        panier = Panier()
+                        panier.client=request.user 
+                        panier.save()   
+                else:
+                    try:
+                        panier = Panier.objects.get(session=session)
+                    except:
+                        panier = Panier()
+                        panier.session=session 
+                        panier.save()
+
             context ={
+                        'panier':panier,
                         'selected_value': selected_value,
                         'produits': produits
                     }
@@ -142,6 +264,10 @@ class CartView(View):
 
     def get(self, request):
         if request.method == 'GET':
+            if not request.session.session_key:
+                request.session.create()
+            session = request.session
+            session = Session.objects.get(pk=session.session_key)
             remove_value = request.GET.get('remove_produit')
             if remove_value != None:
                 remove_produit = Produit.objects.get(id=remove_value)
@@ -153,11 +279,38 @@ class CartView(View):
                 produit = Produit.objects.get(id=selected_value)
                 if not produit in self.products:
                     self.products.append(produit)  
-
+        if request.user.is_authenticated:
+            try:
+                panier = Panier.objects.get(client=request.user)
+                panier.delete()
+                panier = Panier()
+                panier.client=request.user    
+                panier.save()
+            except:
+                panier = Panier()
+                panier.client=request.user 
+                panier.save()   
+        else:
+            try:
+                panier = Panier.objects.get(session=session)
+                panier.delete()
+                panier = Panier()
+                panier.session=session 
+                panier.save()
+            except:
+                panier = Panier()
+                panier.session=session 
+                panier.save()
+        for product in self.products:
+            produit_panier = ProduitPanier()
+            produit_panier.produit = product  
+            produit_panier.panier = panier
+            produit_panier.save()
         self.total_price = 0
         for i in self.products:
             self.total_price += i.prix_produit      
         context = {
+            'panier': panier,
             'produits': self.products,
             'products_nombre': len(self.products),
             'total_price': self.total_price,
@@ -177,8 +330,28 @@ class CheckoutView(View):
 
         def get (self,request):
             if request.method == 'GET':
-                
-                return render(request,self.template_index)
+                if not request.session.session_key:
+                    request.session.create()
+                session = request.session
+                session = Session.objects.get(pk=session.session_key)
+                if request.user.is_authenticated:
+                    try:
+                        panier = Panier.objects.get(client=request.user)
+                    except:
+                        panier = Panier()
+                        panier.client=request.user 
+                        panier.save()   
+                else:
+                    try:
+                        panier = Panier.objects.get(session=session)
+                    except:
+                        panier = Panier()
+                        panier.session=session 
+                        panier.save()
+                context = {
+                    'panier':panier
+                }
+                return render(request,self.template_index, context)
             
 
 class ThankyouView(View):
@@ -187,8 +360,28 @@ class ThankyouView(View):
 
         def get (self,request):
             if request.method == 'GET':
-                
-                return render(request,self.template_index)
+                if not request.session.session_key:
+                    request.session.create()
+                session = request.session
+                session = Session.objects.get(pk=session.session_key)
+                if request.user.is_authenticated:
+                    try:
+                        panier = Panier.objects.get(client=request.user)
+                    except:
+                        panier = Panier()
+                        panier.client=request.user 
+                        panier.save()   
+                else:
+                    try:
+                        panier = Panier.objects.get(session=session)
+                    except:
+                        panier = Panier()
+                        panier.session=session 
+                        panier.save()
+                context = {
+                    'panier':panier
+                }
+                return render(request,self.template_index, context)
             
 
 class ShopsingleView(View):
@@ -203,8 +396,26 @@ class ShopsingleView(View):
                           print(produit)
                 else:
                     messages.info(request, 'ce produit n\'existe pas')
-
+                if not request.session.session_key:
+                    request.session.create()
+                session = request.session
+                session = Session.objects.get(pk=session.session_key)
+                if request.user.is_authenticated:
+                    try:
+                        panier = Panier.objects.get(client=request.user)
+                    except:
+                        panier = Panier()
+                        panier.client=request.user 
+                        panier.save()   
+                else:
+                    try:
+                        panier = Panier.objects.get(session=session)
+                    except:
+                        panier = Panier()
+                        panier.session=session 
+                        panier.save()
             context ={
+                        'panier':panier,
                         'selected_value': selected_value,
                         'produit': produit
                     }    

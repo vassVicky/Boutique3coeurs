@@ -56,7 +56,7 @@
                   <li>
                     <a href="{% url 'cart' %}" class="site-cart">
                       <span class="icon icon-shopping_cart"></span>
-                      <!-- <span class="count">2</span> -->
+                      <span class="count">{{ panier.produits.count }}</span>
                     </a>
                   </li>
                   <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span
@@ -233,21 +233,23 @@
                       <th>Total</th>
                     </thead>
                     <tbody>
+                      {% for i in panier.produits.all %}
                       <tr>
-                        <td>Robe "it's my birthday"<strong class="mx-2">x</strong> 1</td>
-                        <td>45000.00 FCFA</td>
+                        <td>{{ i.produit.designation_produit }}<strong class="mx-2">x</strong> {{ i.produit.qte_produit }}</td>
+                        <td>{{ i.produit.prix_produit }}</td>
                       </tr>
+                      {% endfor %}
                       <!-- <tr>
                         <td>Polo Shirt <strong class="mx-2">x</strong> 1</td>
                         <td>$100.00</td>
                       </tr> -->
                       <tr>
                         <td class="text-black font-weight-bold"><strong>Panier total</strong></td>
-                        <td class="text-black">45000.00 FCFA</td>
+                        <td class="text-black">{{ panier.prix_total }} FCFA</td>
                       </tr>
                       <tr>
                         <td class="text-black font-weight-bold"><strong>Montant total</strong></td>
-                        <td class="text-black font-weight-bold"><strong>45000.00 FCFA</strong></td>
+                        <td class="text-black font-weight-bold"><strong>{{ panier.prix_total }} FCFA</strong></td>
                       </tr>
                     </tbody>
                   </table>

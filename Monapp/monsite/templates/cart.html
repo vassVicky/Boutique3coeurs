@@ -114,17 +114,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for produit in produits %}
+                  {% for produit in panier.produits.all %}
                   <tr>
                     <td class="product-thumbnail">
-                      <img src="{{produit.image_produit.url}}" alt="Image" class="img-fluid">
+                      <img src="{{produit.produit.image_produit.url}}" alt="Image" class="img-fluid">
                     </td>
                     <td class="product-name">
-                      <h2 class="h5 text-black">{{produit.designation_produit}}</h2>
+                      <h2 class="h5 text-black">{{produit.produit.designation_produit}}</h2>
                     </td>
-                    <td>{{produit.prix_produit}} FCFA</td>
+                    <td>{{produit.produit.prix_produit}} FCFA</td>
 
-                    <td><a href="{% url 'cart' %}?remove_produit={{produit.id}}" class="btn btn-primary btn-sm">X</a>
+                    <td><a href="{% url 'cart' %}?remove_produit={{produit.produit.id}}" class="btn btn-primary btn-sm">X</a>
                     </td>
                   </tr>
                   {%endfor%}
